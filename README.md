@@ -13,8 +13,18 @@ IRS❤️CRA, 2020-2021
 ## Foreign Tax Credit
 
 # US
-1. 和加拿大一样，global income 按照你在US的resident status （注意US的resident status计算比较复杂，会往前推两年）。
+1. 和加拿大一样，global income 按照你在US的resident status （注意US的resident status计算比较复杂，会往前推两年)
 ## Foreign Tax Credit
+## State Tax Rules
+### California: Part-year resident
+> If you lived inside or outside of California during the tax year, you may be a part-year resident.
+> 
+> As a part-year resident, you pay tax on:
+> 
+> * All worldwide income received while a California resident
+> * Income from California sources while you were a nonresident
+
+cf. [7]
 
 # RSU
 1. RSU 的 tax duty 是取决你在这个国家的tax status duration。比如3月在加拿大有一笔grant，11月回到US payroll，来年3月vest，那么vest的这部分前3-11月有加拿大的tax duty，剩下的有US的tax duty。当然了，公司的会计可能不懂，就直接给你double withhold了，所以你需要file t1213来让公司不要double withhold （see below）
@@ -29,3 +39,4 @@ IRS❤️CRA, 2020-2021
 4. [Deemed residents](https://www.canada.ca/en/revenue-agency/services/tax/international-non-residents/individuals-leaving-entering-canada-non-residents/deemed-residents.html)
 5. [T1213 Request to Reduce Tax Deductions at Source](https://www.canada.ca/en/revenue-agency/services/forms-publications/forms/t1213.html)
 6. [Foreign Persons](https://www.irs.gov/individuals/international-taxpayers/foreign-persons)
+7. [Part-year resident and nonresident](https://www.ftb.ca.gov/file/personal/residency-status/part-year-and-nonresident.html)
