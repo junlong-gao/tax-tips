@@ -1,0 +1,6 @@
+image:
+  file: .gitpod.Dockerfile
+
+vscode:
+  extensions:
+    - yzhang.markdown-all-in-one@3.4.0:GR9Y7wA3m2/LsuZxLaCFtg==
