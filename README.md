@@ -20,16 +20,84 @@ IRS❤️CRA, 2020-2021
 ## State Tax Rules
 ### California: Part-year resident
 > If you lived inside or outside of California during the tax year, you may be a part-year resident.
-> 
+>
 > As a part-year resident, you pay tax on:
-> 
+>
 > * All worldwide income received while a California resident
 > * Income from California sources while you were a nonresident
 
 cf. [7]
 
 # RSU
-1. RSU 的 tax duty 是取决你在这个国家的tax status duration。比如3月在加拿大有一笔grant，11月回到US payroll，来年3月vest，那么vest的这部分前3-11月有加拿大的tax duty，剩下的有US的tax duty。当然了，公司的会计可能不懂，就直接给你double withhold了，所以你需要file t1213来让公司不要double withhold （see below）
+RSU 的 tax duty 是取决你在这个国家的tax status duration。比如3月在加拿大有一笔grant，11月回到US payroll，来年3月vest，那么vest的这部分前3-11月有加拿大的tax duty，剩下的有US的tax duty。当然了，公司的会计可能不懂，就直接给你double withhold了，所以你需要file t1213来让公司不要double withhold （see below）
+## Example:
+Let V be a vesting, and `t_grant` be the time it was granted and `t_vest (t_now)` be the time it is vested.
+Let `t_ca \in [t_grant, t_vest)` be the time one enters Canada.
+
+Then let
+`alpha=(t_ca - t_grant)/(t_vest - t_grant)`, `beta = 1 - alpha`.
+
+The tax withholding of this vest V is then
+1. US: `alpha * V * r_usa`
+2. CA: `alpha * V * r_ca + beta * V * r_ca`
+
+Usually `r_usa = r_usa_fed + r_usa_state`, and `r_ca = 53.53%`
+
+The net withholding (without T1213) is
+
+```
+alpha * V * (r_usa + r_ca) + beta * V * r_ca
+```
+These taxs are harsh (can it even exceed `1 * V`?), but part of it will be returned, see below.
+
+When file tax, the US portion is
+
+```
+alpha * V * r_usa_effective
+```
+
+the diff with the withholding is the return, where r_usa_effective is determined by your US tax status.
+
+The Canada portion is
+aThe Canada portion is
+```
+beta * V * r_ca_effective + alpha * V * r_ca_effective -
+      min(alpha * V * r_usa_effective, alpha * V * r_ca_effective
+```
+
+The subtracted portion (which is the diff on Canada tax return) is by US-Canada tax treaty to avoid double tax (a.k.a foreign tax credit by Canada).
+
+Assume (usually) `r_ca_effective >= r_usa_effective`, the net effect is, V is taxed by
+
+```
+V * r_ca_effective
+```
+
+And net total net return is:
+
+```
+(alpha * V * (r_usa + r_ca) + beta * V * r_ca) - V * r_ca_effective
+= V * (r_ca - r_ca_effective) + alpha * V * (r_usa)
+= (alpha * r_usa + r_ca - r_ca_effective) * V
+```
+In other words, return the usual withhold rate diff `r_ca - r_ca_effective`
+and the double tax portion `alpha * r_usa`.
+
+Both of them can be quite significant, and file T1213 will reduce the second
+double tax portion.
+
+To make you feel better, think about the company outlook: the returned portion
+is effectively sign a portion of `alpha * r_usa + r_ca - r_ca_effective` as a put
+option contract: these part will be returned in a year regardless company stock
+outlook. So part of your vest is risk-free for loss, but neither can you enjoy the gain.
+To have a feeling of how large it is, this is roughly `0.7 * 0.33 + (0.53 - 0.35) = 0.41`,
+so you elect 41% of your vest to be sold on spot to mitigate the risk, the next 35%
+to CRA, then finally 24% remains on vest day for growth(or loss, depending on
+your company outlook).
+
+If you have a good outlook of your company or want to take risks, get T1213
+and remove `alpha * r_usa` part. Otherwise sit back and wait for it to be
+returned.
 
 # Tax Withhold
 1. 在加拿大，你需要file t1213，然后让CRA approve之后交给公司来减少double withhold
